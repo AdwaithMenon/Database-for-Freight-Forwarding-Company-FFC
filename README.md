@@ -1,8 +1,8 @@
-# Database-for-Freight-Forwarding-Company-FFC
+# **Database-for-Freight-Forwarding-Company-FFC**
 
-## Project Description
+## **Project Description**
 
-### Phase 1
+### **Phase 1**
 
 
-### Phase 2
+### **Phase 2**
