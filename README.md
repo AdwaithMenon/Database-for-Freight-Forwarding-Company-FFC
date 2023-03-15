@@ -383,7 +383,7 @@ GROUP BY VESSEL.PORT_OF_DISCHARGE;
 
 ## **Conclusions**
 
-* FFC earns a more than 60% of their revenue from top 2 shipping lines.
+* FFC earns more than 60% of their revenue from top 2 shipping lines.
 
 * Container availability can have a major impact on ocean freight rates.
 
