@@ -225,9 +225,11 @@ e. Submits the final approved shipment details to the shipping line
 #### **1. What is the revenue contribution of each shipping line to the overall FFC revenue?**
 
 **Context:**
+
 The business requires us to establish relationships with several shipping lines so that we have options to ship consignments of different customers to the required destination port, optimizing the cost and profitability. A shipping line can vary in size, cost and ports at which they conduct operations.
 
 **KPI/Business Metric:**
+
 Primary KPI that can be monitored through this query
 -	Revenue Growth Month on Month
 -	Revenue contribution per shipping line
@@ -255,9 +257,11 @@ ORDER BY COMMISSION DESC;
 #### **2.	Generate a report that shows the calculated revenue % earned by each category of cargo shipped.**
 
 **Context:**
+
 The cargo being shipped can be categorized based on the type of product being shipped. Each category impacts overall profitability differently. Electronics for instance may require special packaging, frozen food may need special temperature conditions. These can lead to additional cost of shipping. Scrap on the other hand, may not require special (costly) shipping conditions. The cost will vary depending on the cargo being shipped. 
 
 **KPI/Business Metric:**
+
 KPI/Business Metric:
 Primary KPI that can be monitored through this query
 -	Revenue percentage contribution per cargo type
@@ -290,9 +294,11 @@ ORDER BY REVENUE_PCT DESC;
 #### **3.	Generate a report that shows the conversion rate per customer based on the number of inquiries (cases) converted into successful shipments.**
 
 **Context:**
+
 Each inquiry made by the customer is stored in the database as a case. Based on the process that follows from logging the case to finalizing, the case is updated in the database as success, closed or open. ‘Success’ refers to the cases which are successfully shipped by the shipping line. 
 
 **KPI/Business Metric:**
+
 Primary KPI that can be monitored through this query
 -	Conversion percentage per customer segment (industry type) based on the total cases 
 
@@ -318,10 +324,12 @@ ORDER BY CONVERSION_RATE DESC;
 #### **4.	Generate a report that shows the volume (in cubic meters) of the cargo that is shipped from each Port of Loading.**
 
 **Context:**
+
 High volume cargo being shipped from the port of loading can be of business interest with respect to connectivity, geographical location, etc. However, this could also impact the cost of shipping from that port. The shipping lines that we contact may have longer term contracts with certain ports of loading which can be a deciding factor for connecting customers to shipping lines. 
 
 
 **KPI/Business Metric:**
+
 Primary KPI that can be monitored through this query
 -	Monthly shipping capacity per port 
 Deduced KPI that can be monitored through this query
@@ -348,10 +356,12 @@ GROUP BY VESSEL.PORT_OF_DISCHARGE;
 #### **5.	 Generate a report that shows the number of each type of container that has reached a particular Port of Discharge.**
 
 **Context:**
+
 Each container in the database has a specific port of loading (source location) and port of discharge (destination location) associated with it. Different types of containers (for example, 40ft, 20ft)  are used  depending on the nature, weight and volume of the cargo. The containers that reach a particular port of discharge are destuffed and the empty containers are stored in the container yard.
 
 
 **KPI/Business Metric:**
+
 Primary KPI that can be monitored through this query :
 -	Containers available per port of discharge
 
