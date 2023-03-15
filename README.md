@@ -88,6 +88,8 @@ necessary to complete the shipment and are mandatory for the importer to take co
 the cargo at the destination port.These documents are handed over to the exporter, who 
 then sends these documents to the importer /consignee.
 
+
+
 **2. Shipping Line / Liner:**
 
 a. The shipping line is a company that owns the shipping vessels & containers which 
@@ -110,6 +112,8 @@ exigency such as lack of space or delay in schedule.
 f. Liner provides the necessary documents / proofs in order for the exporter to go for a 
 claim in instances where the vessel has met with an accident and there has been damage 
 to the cargo / goods.
+
+
 
 **3. Customer:**
 
@@ -143,10 +147,14 @@ documentation
 g. Exporter hands over the final documents along with the shipment. The final documents 
 are to be produced at the destination port by the importer.
 
+
+
 **4. Customer Sales Executive:**
 a. Opens the case when a new customer query comes online and assigns case number
 b. Gathers customer’s input through the form filled online. This is required to identify 
 relevant shipping lines and the type of services required for the customer.
+
+
 
 **5. Customer Operations Executive:**
 
@@ -158,6 +166,8 @@ freight rates and shipping vessel schedules for every given case number.
 
 c. Ensures that the empty container is available for pick up by the exporter if the shipment is 
 confirmed.
+
+
 
 **6. Customer Support Executive:** 
 
@@ -173,6 +183,8 @@ e. Sends the booking confirmation to the customer
 
 f. Updates the customer about changes in vessel schedules and estimated time of arrival 
 (ETA) and closes the case (Case Status = Closed)
+
+
 
 **7. Customer Documentation Executive:**
 
@@ -210,7 +222,7 @@ e. Submits the final approved shipment details to the shipping line
 
 ## **SQL Query Report**
 
-**1. What is the revenue contribution of each shipping line to the overall FFC revenue?**
+#### **1. What is the revenue contribution of each shipping line to the overall FFC revenue?**
 
 **Context:**
 The business requires us to establish relationships with several shipping lines so that we have options to ship consignments of different customers to the required destination port, optimizing the cost and profitability. A shipping line can vary in size, cost and ports at which they conduct operations.
@@ -240,7 +252,7 @@ ORDER BY COMMISSION DESC;
 <img width="262" alt="image" src="https://user-images.githubusercontent.com/70052374/225171151-d7e635e3-daf6-4b03-9a20-e1ca96fce129.png">
 
 
-**2.	Generate a report that shows the calculated revenue % earned by each category of cargo shipped.**
+#### **2.	Generate a report that shows the calculated revenue % earned by each category of cargo shipped.**
 
 **Context:**
 The cargo being shipped can be categorized based on the type of product being shipped. Each category impacts overall profitability differently. Electronics for instance may require special packaging, frozen food may need special temperature conditions. These can lead to additional cost of shipping. Scrap on the other hand, may not require special (costly) shipping conditions. The cost will vary depending on the cargo being shipped. 
@@ -275,7 +287,7 @@ ORDER BY REVENUE_PCT DESC;
 
 
 
-**3.	Generate a report that shows the conversion rate per customer based on the number of inquiries (cases) converted into successful shipments.**
+#### **3.	Generate a report that shows the conversion rate per customer based on the number of inquiries (cases) converted into successful shipments.**
 
 **Context:**
 Each inquiry made by the customer is stored in the database as a case. Based on the process that follows from logging the case to finalizing, the case is updated in the database as success, closed or open. ‘Success’ refers to the cases which are successfully shipped by the shipping line. 
@@ -303,7 +315,7 @@ ORDER BY CONVERSION_RATE DESC;
 
 
 
-**4.	Generate a report that shows the volume (in cubic meters) of the cargo that is shipped from each Port of Loading.**
+#### **4.	Generate a report that shows the volume (in cubic meters) of the cargo that is shipped from each Port of Loading.**
 
 **Context:**
 High volume cargo being shipped from the port of loading can be of business interest with respect to connectivity, geographical location, etc. However, this could also impact the cost of shipping from that port. The shipping lines that we contact may have longer term contracts with certain ports of loading which can be a deciding factor for connecting customers to shipping lines. 
@@ -333,7 +345,7 @@ GROUP BY VESSEL.PORT_OF_DISCHARGE;
 
 
 
-**5.	 Generate a report that shows the number of each type of container that has reached a particular Port of Discharge.**
+#### **5.	 Generate a report that shows the number of each type of container that has reached a particular Port of Discharge.**
 
 **Context:**
 Each container in the database has a specific port of loading (source location) and port of discharge (destination location) associated with it. Different types of containers (for example, 40ft, 20ft)  are used  depending on the nature, weight and volume of the cargo. The containers that reach a particular port of discharge are destuffed and the empty containers are stored in the container yard.
@@ -359,4 +371,12 @@ GROUP BY VESSEL.PORT_OF_DISCHARGE;
 <img width="485" alt="image" src="https://user-images.githubusercontent.com/70052374/225171950-71338004-d733-4784-b88f-9478c1ae69af.png">
 
 
+## **Conclusions**
 
+* FFC earns a more than 60% of their revenue from top 2 shipping lines.
+
+* Container availability can have a major impact on ocean freight rates.
+
+* Ports where the volume of cargo shipped out is high should be the FFC’s priority while filing freight rate contracts with the shipping line.
+
+* Customer conversion rate is an important metric that can help FFC to find ‘low-cost high revenue’ customers.
