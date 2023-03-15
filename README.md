@@ -208,3 +208,155 @@ e. Submits the final approved shipment details to the shipping line
 <img width="672" alt="image" src="https://user-images.githubusercontent.com/70052374/225167813-31ccfc55-e081-429f-8df6-2c4abe209b8a.png">
 
 
+## **SQL Query Report**
+
+**1. What is the revenue contribution of each shipping line to the overall FFC revenue?**
+
+**Context:**
+The business requires us to establish relationships with several shipping lines so that we have options to ship consignments of different customers to the required destination port, optimizing the cost and profitability. A shipping line can vary in size, cost and ports at which they conduct operations.
+
+**KPI/Business Metric:**
+Primary KPI that can be monitored through this query
+-	Revenue Growth Month on Month
+-	Revenue contribution per shipping line
+Secondary KPIs that can be tracked
+-	Cost of doing business with each shipping line
+
+
+**SQL Query:**
+
+SELECT SHIPPING_LINE.LINER_NAME, SUM(DISTINCT SHIPPING_LINE.COMMISSION_PCT*BILL_OF_LADING.OCEAN_FREIGHT) AS COMMISSION
+FROM SHIPPING_LINE INNER JOIN CONSIGNMENT
+ON SHIPPING_LINE.LINER_ID=CONSIGNMENT.LINER_ID
+INNER JOIN CONTAINER
+ON CONSIGNMENT.CONSIGNMENT_ID=CONTAINER.CONSIGNMENT_ID
+INNER JOIN BILL_OF_LADING
+ON BILL_OF_LADING.BL_ID=CONTAINER.BL_ID
+GROUP BY SHIPPING_LINE.LINER_NAME
+ORDER BY COMMISSION DESC;
+
+**Output:**
+
+<img width="262" alt="image" src="https://user-images.githubusercontent.com/70052374/225171151-d7e635e3-daf6-4b03-9a20-e1ca96fce129.png">
+
+
+**2.	Generate a report that shows the calculated revenue % earned by each category of cargo shipped.**
+
+**Context:**
+The cargo being shipped can be categorized based on the type of product being shipped. Each category impacts overall profitability differently. Electronics for instance may require special packaging, frozen food may need special temperature conditions. These can lead to additional cost of shipping. Scrap on the other hand, may not require special (costly) shipping conditions. The cost will vary depending on the cargo being shipped. 
+
+**KPI/Business Metric:**
+KPI/Business Metric:
+Primary KPI that can be monitored through this query
+-	Revenue percentage contribution per cargo type
+-	Category-wise revenue growth
+Secondary KPIs that can be tracked
+-	Customer wise profitability
+
+
+**SQL Query:**
+
+SELECT PACKING_LIST.CARGO_DESCRIPTION, (TO_CHAR(ROUND(SUM(DISTINCT SHIPPING_LINE.COMMISSION_PCT*BILL_OF_LADING.OCEAN_FREIGHT)/31950*100,2))||'%') AS REVENUE_PCT
+FROM SHIPPING_LINE INNER JOIN CONSIGNMENT
+ON SHIPPING_LINE.LINER_ID=CONSIGNMENT.LINER_ID
+INNER JOIN CONTAINER
+ON CONSIGNMENT.CONSIGNMENT_ID=CONTAINER.CONSIGNMENT_ID
+INNER JOIN BILL_OF_LADING
+ON BILL_OF_LADING.BL_ID=CONTAINER.BL_ID
+INNER JOIN PACKING_LIST
+ON PACKING_LIST.BL_ID= BILL_OF_LADING.BL_ID
+GROUP BY PACKING_LIST.CARGO_DESCRIPTION
+ORDER BY REVENUE_PCT DESC;
+
+**Output:**
+
+<img width="273" alt="image" src="https://user-images.githubusercontent.com/70052374/225171401-9747da4b-3629-4a56-9c1e-4f6e75d66765.png">
+
+
+
+
+**3.	Generate a report that shows the conversion rate per customer based on the number of inquiries (cases) converted into successful shipments.**
+
+**Context:**
+Each inquiry made by the customer is stored in the database as a case. Based on the process that follows from logging the case to finalizing, the case is updated in the database as success, closed or open. ‘Success’ refers to the cases which are successfully shipped by the shipping line. 
+
+**KPI/Business Metric:**
+Primary KPI that can be monitored through this query
+-	Conversion percentage per customer segment (industry type) based on the total cases 
+
+
+**SQL Query:**
+
+SELECT CUSTOMER.CUSTOMER_NAME, 
+TO_CHAR(ROUND(SUM(CASE WHEN CASES.CASE_STATUS='SUCCESS' THEN 1 ELSE 0 END)/COUNT(CASES.CASE_ID)*100,2))||'%' 
+AS CONVERSION_RATE
+FROM CASES
+INNER JOIN CUSTOMER
+ON CASES.CUSTOMER_ID=CUSTOMER.CUSTOMER_ID
+GROUP BY CUSTOMER.CUSTOMER_NAME
+ORDER BY CONVERSION_RATE DESC;
+
+
+**Output:**
+
+<img width="211" alt="image" src="https://user-images.githubusercontent.com/70052374/225171610-1afeaf1b-95f1-4ea0-8189-2b4175ce73af.png">
+
+
+
+**4.	Generate a report that shows the volume (in cubic meters) of the cargo that is shipped from each Port of Loading.**
+
+**Context:**
+High volume cargo being shipped from the port of loading can be of business interest with respect to connectivity, geographical location, etc. However, this could also impact the cost of shipping from that port. The shipping lines that we contact may have longer term contracts with certain ports of loading which can be a deciding factor for connecting customers to shipping lines. 
+
+
+**KPI/Business Metric:**
+Primary KPI that can be monitored through this query
+-	Monthly shipping capacity per port 
+Deduced KPI that can be monitored through this query
+-	Business lost due to delay in shipping through busy ports. This would require additional information logging of fields that are currently not part of the current database.
+
+
+**SQL Query:**
+
+SELECT VESSEL.PORT_OF_DISCHARGE,
+SUM(CASE WHEN CONTAINER.CONTAINER_TYPE='20FT' THEN 1 ELSE 0 END) NO_OF_20FT_CONTAINERS ,
+SUM(CASE WHEN CONTAINER.CONTAINER_TYPE='40FT' THEN 1 ELSE 0 END)  NO_OF_40FT_CONTAINERS
+FROM VESSEL
+INNER JOIN CONTAINER
+ON CONTAINER.VESSEL_ID = VESSEL.VESSEL_ID
+GROUP BY VESSEL.PORT_OF_DISCHARGE;
+
+
+**Output:**
+
+<img width="464" alt="image" src="https://user-images.githubusercontent.com/70052374/225171767-3460098f-7678-48de-9e73-355f4cc75de0.png">
+
+
+
+**5.	 Generate a report that shows the number of each type of container that has reached a particular Port of Discharge.**
+
+**Context:**
+Each container in the database has a specific port of loading (source location) and port of discharge (destination location) associated with it. Different types of containers (for example, 40ft, 20ft)  are used  depending on the nature, weight and volume of the cargo. The containers that reach a particular port of discharge are destuffed and the empty containers are stored in the container yard.
+
+
+**KPI/Business Metric:**
+Primary KPI that can be monitored through this query :
+-	Containers available per port of discharge
+
+
+**SQL Query:**
+
+SELECT VESSEL.PORT_OF_DISCHARGE,
+SUM(CASE WHEN CONTAINER.CONTAINER_TYPE='20FT' THEN 1 ELSE 0 END) NO_OF_20FT_CONTAINERS ,
+SUM(CASE WHEN CONTAINER.CONTAINER_TYPE='40FT' THEN 1 ELSE 0 END)  NO_OF_40FT_CONTAINERS
+FROM VESSEL
+INNER JOIN CONTAINER
+ON CONTAINER.VESSEL_ID = VESSEL.VESSEL_ID
+GROUP BY VESSEL.PORT_OF_DISCHARGE;
+
+**Output:**
+
+<img width="485" alt="image" src="https://user-images.githubusercontent.com/70052374/225171950-71338004-d733-4784-b88f-9478c1ae69af.png">
+
+
+
