@@ -1,4 +1,5 @@
-## _Streamlining Business Processes for Freight Forwarding Company (Oracle Database)_
+## _Streamlining Business Processes for Freight Forwarding Company_
+#### _Oracle Database_
 
 ## **Project Description**
 
