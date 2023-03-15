@@ -156,17 +156,23 @@ d. Sends the drafts of the shipping documents to the exporter for approval
 e. Submits the final approved shipment details to the shipping line
 
 
-## **SWIMLANE DIAGRAM FOR SEA FREIGHT CONTAINER BOOKING PROCESS (AS-IS)**
+
+## **Swimlane Diagram For Sea Freight Container Booking Process (AS-IS)**
+
 
 <img width="785" alt="image" src="https://user-images.githubusercontent.com/70052374/225168536-e4bcda94-ae65-469a-807a-806184fa2e08.png">
 
 
-## **SWIMLANE DIAGRAM FOR SEA FREIGHT CONTAINER BOOKING PROCESS (TO-BE)**
 
-<img width="752" alt="image" src="https://user-images.githubusercontent.com/70052374/225168650-c7d79bb0-4cfb-478a-9c86-f2370299d981.png">
+## **Swimlane Diagram For Sea Freight Container Booking Process (TO-BE)**
+
+
+<img width="862" alt="image" src="https://user-images.githubusercontent.com/70052374/225169337-b0b73d5c-1c2d-4d06-9ee0-ac8bc3e861c4.png">
+
 
 
 ## **Enhanced Entity Relationship Diagram (EERD)**
+
 
 <img width="672" alt="image" src="https://user-images.githubusercontent.com/70052374/225167813-31ccfc55-e081-429f-8df6-2c4abe209b8a.png">
 
